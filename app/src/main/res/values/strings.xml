@@ -8,4 +8,5 @@
     <string name="place_rating">"Place rating: %.1f"</string>
     <string name="number_user_ratings">Number of user ratings: %d</string>
     <string name="photo_url">https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&amp;photoreference=%1s&amp;key=%2s</string>
+    <string name="error_fetch_data">Error fetch data</string>
 </resources>

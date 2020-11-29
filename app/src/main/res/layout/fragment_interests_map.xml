@@ -7,6 +7,8 @@
         <variable
             name="InterestsMapFragmentViewModel"
             type="com.interestsnearby.fragments.interestsMap.InterestsMapFragmentViewModel" />
+
+        <import type="android.view.View"/>
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -42,6 +44,23 @@
             android:background="@drawable/rounded_shape_top_corners"
             android:layout_marginTop="-20dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:visibility="@{InterestsMapFragmentViewModel.errorMLD ? View.GONE : View.VISIBLE}"/>
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|bottom"
+            android:indeterminate="true"
+            android:visibility="@{InterestsMapFragmentViewModel.dataFetchingProgressMLD ? View.VISIBLE : View.GONE}"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="@string/error_fetch_data"
+            android:textColor="@color/errorRedColor"
+            android:layout_gravity="bottom|center"
+            android:visibility="@{InterestsMapFragmentViewModel.errorMLD ? View.VISIBLE : View.GONE}" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

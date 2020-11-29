@@ -24,7 +24,5 @@ interface IInterestsMapContract {
             credentialsGooglePlacesKey: String
         ): Flow<InterestsPlaces>
     }
-    interface IViewModel{
-
-    }
+    interface IViewModel
 }

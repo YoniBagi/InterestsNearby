@@ -28,6 +28,7 @@ import com.interestsnearby.dataModel.WayPoint
 
 class InterestsMapFragment : Fragment(), IInterestsMapContract.IFragment,
     ListPlacesAdapter.ListPlacesCallBack {
+    private var currentLocation: Location? = null
     private lateinit var mViewModel: InterestsMapFragmentViewModel
     private lateinit var mHost: IInterestsMapContract.IHost
     private var mMapView: MapView? = null
@@ -90,6 +91,11 @@ class InterestsMapFragment : Fragment(), IInterestsMapContract.IFragment,
         })
     }
 
+    override fun onResume() {
+        super.onResume()
+        mHost.setFragmentCallBack(this)
+    }
+
     private fun setRecyclerViewPlaces(places: List<Place>) {
         rvListPlaces?.adapter = ListPlacesAdapter(places, this)
     }
@@ -134,7 +140,10 @@ class InterestsMapFragment : Fragment(), IInterestsMapContract.IFragment,
         mViewModel.observeToLocation()
         mViewModel.getLocationChangeMLD()
             .observe(this, Observer { zoomToLocation(it.latitude, it.longitude) })
-        mViewModel.getCurrentLocationChangeMLD().observe(this, Observer { changeCurrentPin(it) })
+        mViewModel.getCurrentLocationChangeMLD().observe(this, Observer {
+            changeCurrentPin(it)
+            currentLocation = it
+        })
     }
 
     private fun changeCurrentPin(location: Location) {
@@ -170,7 +179,7 @@ class InterestsMapFragment : Fragment(), IInterestsMapContract.IFragment,
         geofenceBitmap = createBitmap(R.drawable.ic_check_circle_red)
     }
 
-    private fun createBitmap(iconRes: Int): Bitmap?{
+    private fun createBitmap(iconRes: Int): Bitmap? {
         return context?.let {
             AppCompatResources.getDrawable(it, iconRes)?.toBitmap()
         }
@@ -190,9 +199,12 @@ class InterestsMapFragment : Fragment(), IInterestsMapContract.IFragment,
         //Add indication on map when user enter to place
         mIndicarionGeofence.elements.clear()
         mMapView?.layers?.add(mIndicarionGeofence)
-        mIndicarionGeofence.elements.add(
-            getMapIcon("",Geopoint(location.latitude, location.longitude), geofenceBitmap)
-        )
+        currentLocation?.let {
+            mIndicarionGeofence.elements.add(
+                getMapIcon("", Geopoint(it.latitude, it.longitude), geofenceBitmap)
+            )
+        }
+
 
     }
 }
