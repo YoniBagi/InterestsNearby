@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="ListPlacesViewHolder"
+            type="com.interestsnearby.adapters.ListPlacesAdapter.ListPlacesViewHolder" />
+
+        <variable
+            name="Place"
+            type="com.interestsnearby.dataModel.Place" />
+
+        <variable
+            name="buildConfig"
+            type="com.interestsnearby.BuildConfig" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:onClick="@{_ -> ListPlacesViewHolder.onClickItem(Place.geometry.location)}">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/imagePlace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="10dp"
+            app:cardCornerRadius="10dp">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop"
+                android:visibility="@{Place.photos == null ? View.GONE : View.VISIBLE}"
+                app:loadImage="@{@string/photo_url(Place.photos[0].photo_reference, buildConfig.CREDENTIALS_GOOGLE_PLACES_KEY)}"
+                tools:src="@mipmap/ic_launcher_round" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/placeName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@{@string/place_name(Place.name)}"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imagePlace"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="10dp"/>
+
+        <TextView
+            android:id="@+id/placeVicinity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@{@string/place_vicinity(Place.vicinity)}"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imagePlace"
+            app:layout_constraintTop_toBottomOf="@+id/placeName"
+            android:layout_marginEnd="10dp"/>
+
+        <TextView
+            android:id="@+id/placeRating"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@{@string/place_rating(Place.rating)}"
+            android:textSize="16sp"
+            android:visibility="@{Place.rating == 0 ? View.GONE : View.VISIBLE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imagePlace"
+            app:layout_constraintTop_toBottomOf="@+id/placeVicinity"
+            android:layout_marginEnd="10dp"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@{@string/number_user_ratings(Place.user_ratings_total)}"
+            android:textSize="16sp"
+            android:visibility="@{Place.user_ratings_total == 0 ? View.GONE : View.VISIBLE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imagePlace"
+            app:layout_constraintTop_toBottomOf="@+id/placeRating"
+            android:layout_marginEnd="10dp"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

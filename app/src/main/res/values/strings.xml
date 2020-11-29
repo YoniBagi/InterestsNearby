@@ -1,0 +1,11 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Interests Nearby</string>
+    <string name="rationale_location_permission">We require a location permission Please allow it in Settings</string>
+    <string name="setting_button">SETTINGS</string>
+    <string name="my_location_title">Me</string>
+    <string name="place_name">"Name: %s"</string>
+    <string name="place_vicinity">Vicinity: %s</string>
+    <string name="place_rating">"Place rating: %.1f"</string>
+    <string name="number_user_ratings">Number of user ratings: %d</string>
+    <string name="photo_url">https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&amp;photoreference=%1s&amp;key=%2s</string>
+</resources>
